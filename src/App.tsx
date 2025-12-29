@@ -1,7 +1,8 @@
 import './index.css';
-import { BrowserRouter as Router, Routes, Route, } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './utils/ThemeContext';
 import { PointsProvider } from './context/PointsContext';
+import { UserProvider, useUser } from './context/UserContext';
 
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
@@ -10,8 +11,11 @@ import GameHub from './components/games/GameHub';
 import MemoryMatch from './components/games/MemoryMatch';
 import GiftCatcher from './components/games/GiftCatcher';
 import Shop from './components/Shop';
+import LoginScreen from './components/LoginScreen';
 
-function App() {
+function MainApp() {
+  const { currentUser } = useUser();
+
   // Simple snowfall background using CSS/divs
   const snowflakes = Array.from({ length: 50 }).map((_, i) => (
     <div
@@ -33,39 +37,60 @@ function App() {
     </div>
   ));
 
+  const background = (
+    <>
+      <style>{`
+            @keyframes fall {
+                0% { transform: translateY(-30vh); }
+                100% { transform: translateY(110vh); }
+            }
+            `}</style>
+      {snowflakes}
+    </>
+  );
+
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen w-full relative overflow-x-hidden">
+        {background}
+        <div className="relative z-10">
+          <LoginScreen />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Router>
+      <div className="min-h-screen w-full flex flex-col items-center pt-32 px-4 relative overflow-x-hidden">
+        {background}
+
+        <Navbar />
+
+        {/* Main Content Area */}
+        <main className="w-full z-10 min-h-[500px] flex justify-center">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/planner" element={<Planner />} />
+            <Route path="/games" element={<GameHub />} />
+            <Route path="/games/memory" element={<MemoryMatch />} />
+            <Route path="/games/catcher" element={<GiftCatcher />} />
+            <Route path="/shop" element={<Shop />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+}
+
+function App() {
   return (
     <ThemeProvider>
-      <PointsProvider>
-        <Router>
-          <div className="min-h-screen w-full flex flex-col items-center pt-32 px-4 relative overflow-x-hidden">
-            <style>{`
-            @keyframes fall {
-            0% { transform: translateY(-30vh); }
-            100% { transform: translateY(110vh); }
-            }
-        `}</style>
-
-            {/* Background Effect */}
-            {snowflakes}
-
-            <Navbar />
-
-            {/* Main Content Area */}
-            <main className="w-full z-10 min-h-[500px] flex justify-center">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/planner" element={<Planner />} />
-                <Route path="/games" element={<GameHub />} />
-                <Route path="/games/memory" element={<MemoryMatch />} />
-                <Route path="/games/catcher" element={<GiftCatcher />} />
-                <Route path="/shop" element={<Shop />} />
-              </Routes>
-            </main>
-
-            {/* Footer Removed */}
-          </div>
-        </Router>
-      </PointsProvider>
+      <UserProvider>
+        <PointsProvider>
+          <MainApp />
+        </PointsProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 }

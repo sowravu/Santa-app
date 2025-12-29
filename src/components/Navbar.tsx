@@ -1,16 +1,18 @@
 import React from 'react';
-import { Snowflake, Moon, Sun, ShoppingBag, Gamepad2, Coins } from 'lucide-react';
+import { Snowflake, Moon, Sun, ShoppingBag, Gamepad2, Coins, LogOut } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
 import { usePoints } from '../context/PointsContext';
+import { useUser } from '../context/UserContext';
 
 const Navbar: React.FC = () => {
     const { theme, toggleTheme } = useTheme();
     const { points } = usePoints();
+    const { currentUser, logout } = useUser();
 
     return (
         <div className="fixed top-6 left-0 w-full z-50 flex justify-center pointer-events-none">
-            <nav className="pointer-events-auto bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/40 dark:border-gray-700 shadow-xl rounded-full pl-6 pr-6 py-3 flex items-center gap-6 relative transition-colors duration-300">
+            <nav className="pointer-events-auto bg-white/80 dark:bg-[#121212]/90 backdrop-blur-md border border-white/40 dark:border-gray-700 shadow-xl rounded-full pl-6 pr-6 py-3 flex items-center gap-6 relative transition-colors duration-300">
 
                 {/* Left Animated Ornament */}
                 <div className="absolute -left-6 top-8 animate-swing" style={{ animationDelay: '0s' }}>
@@ -62,6 +64,22 @@ const Navbar: React.FC = () => {
                     <Coins size={16} className="text-yellow-600 dark:text-yellow-500" />
                     <span className="font-bold text-yellow-700 dark:text-yellow-400 text-sm">{points}</span>
                 </div>
+
+                {/* User Info */}
+                {currentUser && (
+                    <div className="flex items-center gap-2 pl-4 border-l border-gray-200 dark:border-gray-700">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-white text-sm font-bold shadow-md">
+                            {currentUser.charAt(0).toUpperCase()}
+                        </div>
+                        <button
+                            onClick={logout}
+                            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-red-500 transition-colors"
+                            title="Logout"
+                        >
+                            <LogOut size={18} />
+                        </button>
+                    </div>
+                )}
 
                 {/* Theme Toggle */}
                 <button

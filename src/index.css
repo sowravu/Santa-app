@@ -7,7 +7,7 @@
   --text-dark: #1F2937;
   --text-gray: #4B5563;
   --bg-white: #FFFFFF;
-  --bg-dark: #111827;
+  --bg-dark: #121212;
   --text-light: #F3F4F6;
 
   --font-standard: 'Outfit', system-ui, sans-serif;
@@ -68,8 +68,8 @@ button:active {
 }
 
 .dark .glass-card {
-  background: rgba(17, 24, 39, 0.7);
-  border-color: #374151;
+  background: rgba(30, 30, 30, 0.9);
+  border-color: #333333;
   color: #F3F4F6;
 }
 
@@ -104,7 +104,7 @@ button:active {
 }
 
 .dark .input-field {
-  background: #1F2937;
+  background: #2D2D2D;
   border-color: #4B5563;
   color: #F3F4F6;
 }
