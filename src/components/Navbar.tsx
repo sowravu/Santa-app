@@ -1,5 +1,5 @@
 import React from 'react';
-import { Snowflake, Moon, Sun, ShoppingBag, Gamepad2, Coins, LogOut } from 'lucide-react';
+import { Moon, Sun, ShoppingBag, Gamepad2, Coins, LogOut } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
 import { usePoints } from '../context/PointsContext';
@@ -33,10 +33,16 @@ const Navbar: React.FC = () => {
                 {/* Logo Link to Home */}
                 <div className="flex items-center gap-3 pr-4 border-r border-gray-200 dark:border-gray-700 transition-colors duration-300">
                     <NavLink to="/" className="flex items-center gap-3 group">
-                        <div className="bg-gradient-to-br from-red-500 to-red-600 p-2 rounded-full text-white shadow-sm group-hover:rotate-180 transition-transform duration-700">
-                            <Snowflake size={20} />
+                        <div className="relative w-9 h-9 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                            <img
+                                src={theme === 'light' ? '/santa-hat-light.png' : '/santa-hat-dark.png'}
+                                alt="Santa Hat Logo"
+                                className={`w-full h-full object-contain drop-shadow-md animate-float ${theme === 'light' ? 'mix-blend-multiply' : 'mix-blend-screen'
+                                    }`}
+                                style={{ animationDuration: '3s' }}
+                            />
                         </div>
-                        <span className="text-xl font-bold tracking-tight text-gray-800 dark:text-gray-100 hidden md:block transition-colors duration-300">
+                        <span className="text-xl font-bold tracking-tight text-gray-800 dark:text-gray-100 hidden md:block transition-colors duration-300 font-heading">
                             SantaGift
                         </span>
                     </NavLink>
