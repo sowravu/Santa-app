@@ -7,6 +7,8 @@
   --text-dark: #1F2937;
   --text-gray: #4B5563;
   --bg-white: #FFFFFF;
+  --bg-dark: #111827;
+  --text-light: #F3F4F6;
 
   --font-standard: 'Outfit', system-ui, sans-serif;
 }
@@ -20,6 +22,12 @@ body {
   color: var(--text-dark);
   font-family: var(--font-standard);
   overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dark body {
+  background: var(--bg-dark);
+  color: var(--text-light);
 }
 
 h1,
@@ -32,6 +40,12 @@ h6 {
   font-weight: 700;
   color: var(--santa-red);
   /* Headers in Red */
+}
+
+.dark h1,
+.dark span.text-gray-900 {
+  color: #F3F4F6;
+  /* Light text for headers in dark mode, except Santa Red ones if we want */
 }
 
 button {
@@ -50,6 +64,13 @@ button:active {
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding: 2rem;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.dark .glass-card {
+  background: rgba(17, 24, 39, 0.7);
+  border-color: #374151;
+  color: #F3F4F6;
 }
 
 .btn-primary {
@@ -79,13 +100,23 @@ button:active {
   font-family: var(--font-standard);
   color: var(--text-dark);
   box-sizing: border-box;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.3s, color 0.3s;
+}
+
+.dark .input-field {
+  background: #1F2937;
+  border-color: #4B5563;
+  color: #F3F4F6;
 }
 
 .input-field:focus {
   outline: none;
   border-color: var(--santa-red);
   background: white;
+}
+
+.dark .input-field:focus {
+  background: #374151;
 }
 
 /* Animations */
@@ -137,4 +168,23 @@ button:active {
 
 .animate-twinkle {
   animation: twinkle 2s ease-in-out infinite;
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+.animate-swing {
+  animation: swing 3s ease-in-out infinite;
+  transform-origin: top center;
 }

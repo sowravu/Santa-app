@@ -1,32 +1,35 @@
 import React from 'react';
 import { Gift, Star, Moon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-interface Props {
-    onStart: () => void;
-}
+const HomePage: React.FC = () => {
+    const navigate = useNavigate();
 
-const HomePage: React.FC<Props> = ({ onStart }) => {
+    const onStart = () => {
+        navigate('/games');
+    };
+
     return (
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-6 md:pt-8 flex flex-col md:flex-row items-center md:items-start justify-between gap-8 md:gap-16 animate-fadeIn h-full">
 
             {/* Left Content */}
             <div className="flex-1 text-left z-20">
-                <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-santa-red leading-[1.1] font-heading">
-                    Make this <br />
-                    <span className="text-gray-900">Christmas</span> <br />
-                    Magical!
+                <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-santa-red leading-[1.1] font-heading dark:text-red-400">
+                    Welcome to <br />
+                    <span className="text-gray-900 dark:text-gray-100">SantaGift</span> <br />
+                    Play & Win!
                 </h1>
 
-                <p className="text-lg md:text-xl text-gray-500 mb-8 leading-relaxed max-w-lg font-body">
-                    Welcome to Santa's secret planning tool. <br />
-                    Plan the perfect gifts for your loved ones based on budget, behavior, and magic.
+                <p className="text-lg md:text-xl text-gray-500 dark:text-gray-300 mb-8 leading-relaxed max-w-lg font-body">
+                    Enter Santa's magical world of games and prizes. <br />
+                    Play fun holiday games, earn magic points, and collect special gifts from the workshop!
                 </p>
 
                 <button
                     onClick={onStart}
-                    className="bg-[#D42426] text-white py-3 px-8 rounded-xl text-xl font-bold shadow-lg hover:bg-red-700 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-3 z-50 cursor-pointer"
+                    className="bg-[#D42426] text-white py-3 px-8 rounded-xl text-xl font-bold shadow-lg hover:bg-red-700 hover:-translate-y-1 transition-all duration-200 inline-flex items-center gap-3 z-50 cursor-pointer dark:bg-red-600 dark:hover:bg-red-500"
                 >
-                    Let's Explore
+                    Start Playing
                     <Gift size={24} />
                 </button>
             </div>
