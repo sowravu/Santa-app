@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+:root {
+  --santa-red: #D42426;
+  --santa-red-dark: #A61B1D;
+  --text-dark: #1F2937;
+  --text-gray: #4B5563;
+  --bg-white: #FFFFFF;
+
+  --font-standard: 'Outfit', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background: var(--bg-white);
+  color: var(--text-dark);
+  font-family: var(--font-standard);
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-standard);
+  font-weight: 700;
+  color: var(--santa-red);
+  /* Headers in Red */
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-standard);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.glass-card {
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+}
+
+.btn-primary {
+  background: var(--santa-red);
+  color: white;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(212, 36, 38, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--santa-red-dark);
+  box-shadow: 0 6px 12px rgba(212, 36, 38, 0.4);
+  transform: translateY(-2px);
+}
+
+.input-field {
+  background: #F9FAFB;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 100%;
+  font-size: 1rem;
+  font-family: var(--font-standard);
+  color: var(--text-dark);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--santa-red);
+  background: white;
+}
+
+/* Animations */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
