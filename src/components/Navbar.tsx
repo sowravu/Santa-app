@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun, ShoppingBag, Gamepad2, Coins, LogOut, Sparkles } from 'lucide-react';
+import { Moon, Sun, Coins, LogOut, Sparkles } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
 import { usePoints } from '../context/PointsContext';
@@ -53,21 +53,29 @@ const Navbar: React.FC = () => {
                 </div>
 
                 {/* Navigation Links */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-6">
                     <NavLink to="/games"
-                        className={({ isActive }) => `p-2 rounded-full transition-all duration-300 ${isActive ? 'bg-green-100 text-forest-green' : 'dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
-                        style={({ isActive }) => ({ color: isActive ? '#2F5233' : (theme === 'light' ? '#000000' : '') })}
-                        title="Games"
+                        className={({ isActive }) => `text-sm font-bold uppercase tracking-wide transition-all duration-300 ${isActive ? 'text-green-700 dark:text-green-400' : 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400'}`}
                     >
-                        <Gamepad2 size={24} />
+                        Games
                     </NavLink>
 
                     <NavLink to="/shop"
-                        className={({ isActive }) => `p-2 rounded-full transition-all duration-300 ${isActive ? 'bg-yellow-100 text-yellow-700' : 'dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
-                        style={({ isActive }) => ({ color: !isActive && theme === 'light' ? '#000000' : '' })}
-                        title="Shop"
+                        className={({ isActive }) => `text-sm font-bold uppercase tracking-wide transition-all duration-300 ${isActive ? 'text-green-700 dark:text-green-400' : 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400'}`}
                     >
-                        <ShoppingBag size={24} />
+                        Shop
+                    </NavLink>
+
+                    <NavLink to="/#coloring"
+                        className={() => `text-sm font-bold uppercase tracking-wide transition-all duration-300 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400`}
+                    >
+                        Coloring
+                    </NavLink>
+
+                    <NavLink to="/#maze"
+                        className={() => `text-sm font-bold uppercase tracking-wide transition-all duration-300 text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400`}
+                    >
+                        Maze
                     </NavLink>
                 </div>
 
