@@ -100,8 +100,8 @@ Follow these steps to run the project locally on your machine.
 ### Game Hub
 ![Game Hub](/screenshots/games.png)
 
-### Santa's Workshop Shop
-![Santa's Shop](/screenshots/shop.png)
+### Gameplay Preview
+![Memory Match Gameplay](/screenshots/gameplay.png)
 
 
 ---

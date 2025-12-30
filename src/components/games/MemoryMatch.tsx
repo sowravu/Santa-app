@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Gift, TreePine, Snowflake, Star, Bell, Candy, Heart, Music } from 'lucide-react';
+import { Gift, TreePine, Snowflake, Star, Bell, Candy, Heart, Music, ArrowLeft, ShoppingBag, Gamepad2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { usePoints } from '../../context/PointsContext';
 import confetti from 'canvas-confetti';
 
@@ -14,6 +15,7 @@ const ICONS = [Gift, TreePine, Snowflake, Star, Bell, Candy, Heart, Music];
 
 const MemoryMatch: React.FC = () => {
     const { addPoints } = usePoints();
+    const navigate = useNavigate();
     const [cards, setCards] = useState<Card[]>([]);
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -97,8 +99,17 @@ const MemoryMatch: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center">
-            <div className="flex justify-between w-full items-center mb-8">
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center relative">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/games')}
+                className="absolute top-8 left-0 p-2 bg-white/50 dark:bg-black/30 rounded-full hover:bg-white dark:hover:bg-gray-700 transition-colors z-20"
+                title="Back to Games"
+            >
+                <ArrowLeft className="text-gray-700 dark:text-gray-200" size={24} />
+            </button>
+
+            <div className="flex justify-between w-full items-center mb-8 pl-12">
                 <h1 className="text-3xl font-bold font-heading text-santa-red dark:text-red-400">Match the Pairs</h1>
                 <button
                     onClick={initializeGame}
@@ -109,9 +120,32 @@ const MemoryMatch: React.FC = () => {
             </div>
 
             {gameOver && (
-                <div className="mb-8 p-6 bg-green-100 dark:bg-green-900/40 rounded-2xl text-center animate-bounce">
-                    <h2 className="text-2xl font-bold text-forest-green dark:text-green-400 mb-2">You Won! 🎉</h2>
-                    <p className="text-gray-700 dark:text-gray-200">+100 Points added to your stash!</p>
+                <div className="mb-8 p-6 bg-green-100 dark:bg-green-900/40 rounded-2xl text-center animate-bounce shadow-lg border border-green-200 dark:border-green-800">
+                    <h2 className="text-3xl font-bold text-forest-green dark:text-green-400 mb-4">You Won! 🎉</h2>
+                    <p className="text-xl text-gray-700 dark:text-gray-200 mb-6">+100 Points added to your stash!</p>
+
+                    <div className="flex gap-4 justify-center">
+                        <button
+                            onClick={() => navigate('/shop')}
+                            className="flex items-center gap-2 px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full font-bold transition-colors"
+                        >
+                            <ShoppingBag size={20} />
+                            Go to Shop
+                        </button>
+                        <button
+                            onClick={initializeGame}
+                            className="bg-santa-red hover:bg-red-600 text-white px-6 py-2 rounded-full font-bold shadow-md transition-colors"
+                        >
+                            Play Again
+                        </button>
+                    </div>
+                    <button
+                        onClick={() => navigate('/games')}
+                        className="mt-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center gap-2 mx-auto"
+                    >
+                        <Gamepad2 size={18} />
+                        Back to Games
+                    </button>
                 </div>
             )}
 

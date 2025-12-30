@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { User } from 'lucide-react';
+import { User, ArrowLeft, ShoppingBag, Gamepad2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { usePoints } from '../../context/PointsContext';
 import confetti from 'canvas-confetti';
 
 const SnowballFight: React.FC = () => {
     const { addPoints } = usePoints();
+    const navigate = useNavigate();
     const [score, setScore] = useState(0);
     const [activeMole, setActiveMole] = useState<number | null>(null);
     const [timeLeft, setTimeLeft] = useState(30);
     const [isPlaying, setIsPlaying] = useState(false);
     const [gameOver, setGameOver] = useState(false);
 
+    // ... (refs and other logic remain the same) ...
     // Refs to hold current state values for use in closures (intervals/timeouts)
     const scoreRef = useRef(0);
     const timeLeftRef = useRef(30);
@@ -127,7 +130,16 @@ const SnowballFight: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center">
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center relative">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/games')}
+                className="absolute top-8 left-4 p-2 bg-white/50 dark:bg-black/30 rounded-full hover:bg-white dark:hover:bg-gray-700 transition-colors"
+                title="Back to Games"
+            >
+                <ArrowLeft className="text-gray-700 dark:text-gray-200" size={24} />
+            </button>
+
             <h1 className="text-4xl font-bold font-heading text-santa-red dark:text-red-400 mb-8">Snowball Fight!</h1>
 
             <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl w-full max-w-2xl mb-8 border border-gray-200 dark:border-gray-700">
@@ -162,14 +174,31 @@ const SnowballFight: React.FC = () => {
                         <p className="text-xl text-gray-700 dark:text-gray-300 mb-4">
                             You hit <span className="font-bold">{score}</span> elves!
                         </p>
-                        <p className="text-lg text-yellow-600 dark:text-yellow-400 font-bold mb-6">
+                        <p className="text-lg text-yellow-600 dark:text-yellow-400 font-bold mb-8">
                             +{score * 5} Points Earned
                         </p>
+
+                        <div className="flex gap-4 justify-center">
+                            <button
+                                onClick={startGame}
+                                className="btn-primary text-lg"
+                            >
+                                Play Again
+                            </button>
+                            <button
+                                onClick={() => navigate('/shop')}
+                                className="flex items-center gap-2 px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full font-bold transition-colors"
+                            >
+                                <ShoppingBag size={20} />
+                                Go to Shop
+                            </button>
+                        </div>
                         <button
-                            onClick={startGame}
-                            className="btn-primary text-lg"
+                            onClick={() => navigate('/games')}
+                            className="mt-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center gap-2 mx-auto"
                         >
-                            Play Again
+                            <Gamepad2 size={18} />
+                            Back to Games
                         </button>
                     </div>
                 )}

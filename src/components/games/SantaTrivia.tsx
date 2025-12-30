@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, ArrowLeft, ShoppingBag, Gamepad2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { usePoints } from '../../context/PointsContext';
 import confetti from 'canvas-confetti';
 
+// ... (QUESTIONS array remains same) ...
 const QUESTIONS = [
     {
         question: "What is the name of Santa's most famous reindeer?",
@@ -33,6 +35,7 @@ const QUESTIONS = [
 
 const SantaTrivia: React.FC = () => {
     const { addPoints } = usePoints();
+    const navigate = useNavigate();
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [score, setScore] = useState(0);
     const [showScore, setShowScore] = useState(false);
@@ -85,7 +88,16 @@ const SantaTrivia: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center">
+        <div className="w-full max-w-4xl mx-auto px-4 py-8 flex flex-col items-center relative">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/games')}
+                className="absolute top-8 left-4 p-2 bg-white/50 dark:bg-black/30 rounded-full hover:bg-white dark:hover:bg-gray-700 transition-colors"
+                title="Back to Games"
+            >
+                <ArrowLeft className="text-gray-700 dark:text-gray-200" size={24} />
+            </button>
+
             <h1 className="text-4xl font-bold font-heading text-santa-red dark:text-red-400 mb-8">Holiday Trivia</h1>
 
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-full max-w-2xl border border-gray-200 dark:border-gray-700">
@@ -98,11 +110,28 @@ const SantaTrivia: React.FC = () => {
                         <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
                             You earned <span className="font-bold text-yellow-600 dark:text-yellow-400">{score * 20} Points</span>!
                         </p>
+
+                        <div className="flex gap-4 justify-center">
+                            <button
+                                onClick={resetGame}
+                                className="btn-primary text-xl px-8 py-3"
+                            >
+                                Play Again
+                            </button>
+                            <button
+                                onClick={() => navigate('/shop')}
+                                className="flex items-center gap-2 px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-full font-bold transition-colors"
+                            >
+                                <ShoppingBag size={20} />
+                                Go to Shop
+                            </button>
+                        </div>
                         <button
-                            onClick={resetGame}
-                            className="btn-primary text-xl px-8 py-3"
+                            onClick={() => navigate('/games')}
+                            className="mt-6 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center justify-center gap-2 mx-auto"
                         >
-                            Play Again
+                            <Gamepad2 size={18} />
+                            Back to Games
                         </button>
                     </div>
                 ) : (
