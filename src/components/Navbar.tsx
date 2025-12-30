@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun, Coins, LogOut, Sparkles } from 'lucide-react';
+import { Moon, Sun, Coins, LogOut, Sparkles, Menu, X } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../utils/ThemeContext';
 import { usePoints } from '../context/PointsContext';
@@ -9,10 +9,11 @@ const Navbar: React.FC = () => {
     const { theme, toggleTheme } = useTheme();
     const { points } = usePoints();
     const { currentUser, logout } = useUser();
+    const [isOpen, setIsOpen] = React.useState(false);
 
     return (
         <div className="fixed top-6 left-0 w-full z-50 flex justify-center pointer-events-none">
-            <nav className="pointer-events-auto bg-transparent backdrop-blur-xl border border-white/10 dark:border-gray-700/20 shadow-xl rounded-full px-10 py-1 flex items-center gap-6 relative transition-colors duration-300">
+            <nav className="pointer-events-auto bg-transparent backdrop-blur-xl border border-white/10 dark:border-gray-700/20 shadow-xl rounded-full px-6 md:px-10 py-2 md:py-1 flex items-center justify-between gap-4 md:gap-6 relative transition-colors duration-300 w-[90%] md:w-auto">
 
                 {/* Left Animated Ornament */}
                 <div className="absolute -left-6 top-6 animate-swing z-0" style={{ animationDelay: '0s' }}>
@@ -52,8 +53,16 @@ const Navbar: React.FC = () => {
                     </NavLink>
                 </div>
 
-                {/* Navigation Links */}
-                <div className="flex items-center gap-6">
+                {/* Hamburger Menu Button */}
+                <button
+                    className="md:hidden p-2 text-gray-600 dark:text-gray-300"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+
+                {/* Desktop Navigation Links */}
+                <div className="hidden md:flex items-center gap-6">
                     <NavLink to="/games"
                         className={({ isActive }) => `text-sm font-bold uppercase tracking-wide transition-all duration-300 ${isActive ? 'text-green-700 dark:text-green-400' : 'text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400'}`}
                     >
@@ -113,6 +122,18 @@ const Navbar: React.FC = () => {
                 </button>
 
             </nav>
+
+            {/* Mobile Menu Dropdown */}
+            {isOpen && (
+                <div className="absolute top-20 left-0 w-full px-4 md:hidden animate-fadeIn">
+                    <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow-2xl flex flex-col gap-4 items-center">
+                        <NavLink to="/games" onClick={() => setIsOpen(false)} className="text-lg font-bold text-gray-700 dark:text-gray-200 py-2">Games</NavLink>
+                        <NavLink to="/shop" onClick={() => setIsOpen(false)} className="text-lg font-bold text-gray-700 dark:text-gray-200 py-2">Shop</NavLink>
+                        <NavLink to="/#coloring" onClick={() => setIsOpen(false)} className="text-lg font-bold text-gray-700 dark:text-gray-200 py-2">Coloring</NavLink>
+                        <NavLink to="/#maze" onClick={() => setIsOpen(false)} className="text-lg font-bold text-gray-700 dark:text-gray-200 py-2">Maze</NavLink>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

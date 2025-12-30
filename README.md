@@ -71,6 +71,19 @@ Follow these steps to run the project locally on your machine.
 
 ---
 
+## ☁️ Deployment
+
+### Deploying to Vercel (Recommended)
+
+1. **Push to GitHub**: Make sure your project is pushed to a GitHub repository.
+2. **Log in to Vercel**: Go to [vercel.com](https://vercel.com) and sign up/log in with GitHub.
+3. **Import Project**: Click "Add New..." > "Project" and select your `santa-gift-app` repo.
+4. **Deploy**: Leave the default settings (Vercel automatically detects Vite). Click **Deploy**.
+
+*Note: A `vercel.json` file is included to ensure routing works correctly.*
+
+---
+
 ## 📸 Screenshots
 
 > *Add your screenshots here to showcase the application.*
