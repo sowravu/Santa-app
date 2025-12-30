@@ -32,7 +32,7 @@ const LoginScreen: React.FC = () => {
                                 <div className="w-16 h-16 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center text-white text-2xl mb-2 shadow-md group-hover:scale-110 transition-transform">
                                     {user.charAt(0).toUpperCase()}
                                 </div>
-                                <span className="font-bold text-gray-700 dark:text-gray-200 group-hover:text-santa-red dark:group-hover:text-red-400">{user}</span>
+                                <span className="font-bold text-black dark:text-gray-200 group-hover:text-santa-red dark:group-hover:text-red-400">{user}</span>
                             </button>
                         ))}
                     </div>

@@ -70,7 +70,7 @@ const Shop: React.FC = () => {
                                         ${isOwned
                                             ? 'bg-gray-100 dark:bg-gray-800 text-gray-400 cursor-default'
                                             : canAfford
-                                                ? 'bg-santa-red hover:bg-red-700 text-white transform active:scale-95'
+                                                ? 'bg-[#D42426] hover:bg-red-700 text-white transform active:scale-95'
                                                 : 'bg-gray-200 dark:bg-gray-700 text-gray-500 cursor-not-allowed opacity-70'}
                                     `}
                                 >

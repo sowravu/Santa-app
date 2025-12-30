@@ -2,8 +2,11 @@ import React from 'react';
 import { Gift, Star, Moon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+import { useTheme } from '../utils/ThemeContext';
+
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
+    const { theme } = useTheme();
 
     const onStart = () => {
         navigate('/games');
@@ -16,7 +19,7 @@ const HomePage: React.FC = () => {
             <div className="flex-1 text-left z-20">
                 <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-santa-red leading-[1.1] font-heading dark:text-red-400">
                     Welcome to <br />
-                    <span className="text-gray-900 dark:text-gray-100">SantaGift</span> <br />
+                    <span className="dark:text-gray-100" style={{ color: theme === 'light' ? '#000000' : '' }}>SantaGift</span> <br />
                     Play & Win!
                 </h1>
 

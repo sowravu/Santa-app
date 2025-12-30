@@ -13,46 +13,17 @@ import GiftCatcher from './components/games/GiftCatcher';
 import Shop from './components/Shop';
 import LoginScreen from './components/LoginScreen';
 
+import MagicCursor from './components/effects/MagicCursor';
+import Snowfall from './components/effects/Snowfall';
+
 function MainApp() {
   const { currentUser } = useUser();
-
-  // Simple snowfall background using CSS/divs
-  const snowflakes = Array.from({ length: 50 }).map((_, i) => (
-    <div
-      key={i}
-      className="fixed text-gray-200 opacity-60 pointer-events-none animate-spin-slow"
-      style={{
-        position: 'fixed', // Force fixed position
-        pointerEvents: 'none',
-        zIndex: 0,
-        left: `${Math.random() * 100}vw`,
-        top: `-20px`,
-        color: '#E5E7EB', // Light Gray Snow on White
-        animation: `fall ${5 + Math.random() * 10}s linear infinite`,
-        animationDelay: `${Math.random() * 5}s`,
-        fontSize: `${10 + Math.random() * 20}px`
-      }}
-    >
-      ❄
-    </div>
-  ));
-
-  const background = (
-    <>
-      <style>{`
-            @keyframes fall {
-                0% { transform: translateY(-30vh); }
-                100% { transform: translateY(110vh); }
-            }
-            `}</style>
-      {snowflakes}
-    </>
-  );
 
   if (!currentUser) {
     return (
       <div className="min-h-screen w-full relative overflow-x-hidden">
-        {background}
+        <Snowfall />
+        <MagicCursor />
         <div className="relative z-10">
           <LoginScreen />
         </div>
@@ -63,7 +34,8 @@ function MainApp() {
   return (
     <Router>
       <div className="min-h-screen w-full flex flex-col items-center pt-32 px-4 relative overflow-x-hidden">
-        {background}
+        <Snowfall />
+        <MagicCursor />
 
         <Navbar />
 

@@ -23,6 +23,15 @@ body {
   font-family: var(--font-standard);
   overflow-x: hidden;
   transition: background-color 0.3s, color 0.3s;
+  cursor: none;
+  /* Hide default cursor for custom Christmas one */
+}
+
+a,
+button,
+[role="button"] {
+  cursor: none;
+  /* Ensure custom cursor stays even on interactables */
 }
 
 .dark body {
