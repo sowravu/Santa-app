@@ -15,41 +15,78 @@ const GiftCatcher: React.FC = () => {
     const [score, setScore] = useState(0);
     const [timeLeft, setTimeLeft] = useState(30);
     const [isPlaying, setIsPlaying] = useState(false);
-    const isPlayingRef = useRef(false);
     const [items, setItems] = useState<FallingItem[]>([]);
+
+    // Refs for game loop state accessibility
+    const isPlayingRef = useRef(false);
+    const scoreRef = useRef(0);
+    const timeLeftRef = useRef(30);
 
     const requestRef = useRef<number>(0);
     const lastTimeRef = useRef<number>(0);
     const containerRef = useRef<HTMLDivElement>(null);
+    const timerIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-    // Timer Logic
+    // Sync refs with state
     useEffect(() => {
-        isPlayingRef.current = isPlaying;
-        let timer: ReturnType<typeof setInterval>;
-        if (isPlaying && timeLeft > 0) {
-            timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
-        } else if (timeLeft === 0) {
+        scoreRef.current = score;
+    }, [score]);
+
+    useEffect(() => {
+        timeLeftRef.current = timeLeft;
+    }, [timeLeft]);
+
+    useEffect(() => {
+        if (timeLeft === 0 && isPlaying) {
             endGame();
         }
-        return () => clearInterval(timer);
-    }, [isPlaying, timeLeft]);
+    }, [timeLeft, isPlaying]);
+
+    useEffect(() => {
+        return () => {
+            stopGame();
+        };
+    }, []);
+
+    const stopGame = () => {
+        isPlayingRef.current = false;
+        if (requestRef.current) cancelAnimationFrame(requestRef.current);
+        if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
+    };
 
     const startGame = () => {
+        stopGame(); // Ensure clean slate
+
         setScore(0);
         setTimeLeft(30);
         setItems([]);
         setIsPlaying(true);
+
         isPlayingRef.current = true;
+        scoreRef.current = 0;
+        timeLeftRef.current = 30;
+
         lastTimeRef.current = performance.now();
         requestRef.current = requestAnimationFrame(gameLoop);
+
+        // Timer Interval
+        // Timer Interval
+        timerIntervalRef.current = setInterval(() => {
+            setTimeLeft(prev => {
+                if (prev <= 0) return 0;
+                return prev - 1;
+            });
+        }, 1000);
     };
 
     const endGame = () => {
+        stopGame();
         setIsPlaying(false);
-        isPlayingRef.current = false;
-        cancelAnimationFrame(requestRef.current);
-        if (score > 0) {
-            addPoints(score);
+
+        // Use ref to get the most up-to-date score
+        const finalScore = scoreRef.current;
+        if (finalScore > 0) {
+            addPoints(finalScore);
         }
     };
 
@@ -75,7 +112,7 @@ const GiftCatcher: React.FC = () => {
 
                 movedItems.push({
                     id: Date.now() + Math.random(),
-                    x: Math.random() * (containerRef.current?.offsetWidth || 300) - 20,
+                    x: Math.random() * (containerRef.current?.offsetWidth || 300) - 40, // Adjust for width
                     y: -50,
                     speed: 2 + Math.random() * 3,
                     type
@@ -85,19 +122,23 @@ const GiftCatcher: React.FC = () => {
             return movedItems;
         });
 
-        if (timeLeft > 0) {
+        if (timeLeftRef.current > 0) {
             requestRef.current = requestAnimationFrame(gameLoop);
         }
     };
 
     const handleItemClick = (id: number, type: string) => {
-        if (!isPlaying) return;
+        if (!isPlayingRef.current) return;
 
         setItems(prev => prev.filter(item => item.id !== id));
 
-        if (type === 'gift') setScore(s => s + 10);
-        else if (type === 'cookie') setScore(s => s + 20);
-        else if (type === 'coal') setScore(s => Math.max(0, s - 10));
+        setScore(s => {
+            let newScore = s;
+            if (type === 'gift') newScore += 10;
+            else if (type === 'cookie') newScore += 20;
+            else if (type === 'coal') newScore = Math.max(0, s - 10);
+            return newScore;
+        });
     };
 
     return (
@@ -116,7 +157,7 @@ const GiftCatcher: React.FC = () => {
 
             <div
                 ref={containerRef}
-                className="relative w-full h-[500px] bg-sky-100 dark:bg-gray-800 rounded-2xl overflow-hidden border-4 border-white dark:border-gray-700 shadow-xl cursor-crosshair"
+                className="relative w-full h-[500px] bg-sky-100 dark:bg-gray-800 rounded-2xl overflow-hidden border-4 border-white dark:border-gray-700 shadow-xl cursor-crosshair select-none"
             >
                 {!isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/40 z-10 backdrop-blur-sm">
@@ -145,15 +186,16 @@ const GiftCatcher: React.FC = () => {
                 {items.map(item => (
                     <div
                         key={item.id}
-                        onClick={(e) => {
+                        onMouseDown={(e) => {
                             e.stopPropagation();
                             handleItemClick(item.id, item.type);
                         }}
                         className="absolute cursor-pointer hover:scale-110 active:scale-95 transition-transform"
                         style={{
-                            left: item.x,
+                            left: Math.max(0, item.x), // Prevent overflow left
                             top: item.y,
-                            transition: 'top 0s' // disable css transition for smooth JS animation
+                            transition: 'top 0s',
+                            willChange: 'top'
                         }}
                     >
                         {item.type === 'gift' && <Gift size={40} className="text-red-500 drop-shadow-md" />}

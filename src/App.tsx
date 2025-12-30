@@ -10,6 +10,8 @@ import Planner from './components/Planner';
 import GameHub from './components/games/GameHub';
 import MemoryMatch from './components/games/MemoryMatch';
 import GiftCatcher from './components/games/GiftCatcher';
+import SnowballFight from './components/games/SnowballFight';
+import SantaTrivia from './components/games/SantaTrivia';
 import Shop from './components/Shop';
 import LoginScreen from './components/LoginScreen';
 
@@ -47,6 +49,8 @@ function MainApp() {
             <Route path="/games" element={<GameHub />} />
             <Route path="/games/memory" element={<MemoryMatch />} />
             <Route path="/games/catcher" element={<GiftCatcher />} />
+            <Route path="/games/snowball" element={<SnowballFight />} />
+            <Route path="/games/trivia" element={<SantaTrivia />} />
             <Route path="/shop" element={<Shop />} />
           </Routes>
         </main>

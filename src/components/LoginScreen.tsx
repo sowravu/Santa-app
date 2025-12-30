@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserPlus, User } from 'lucide-react';
+import { UserPlus } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 
 const LoginScreen: React.FC = () => {
@@ -16,7 +16,7 @@ const LoginScreen: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 bg-white dark:bg-[#121212] transition-colors duration-300">
+        <div className="min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
             <div className="w-full max-w-md glass-card bg-white/90 dark:bg-[#1E1E1E]/90 text-center animate-fadeIn">
                 <h1 className="text-4xl font-bold font-heading text-santa-red dark:text-red-400 mb-2">Who is playing?</h1>
                 <p className="text-gray-500 dark:text-gray-400 mb-8">Select your profile to load your magic points.</p>
@@ -59,7 +59,7 @@ const LoginScreen: React.FC = () => {
                             />
                             <button
                                 type="submit"
-                                className="bg-santa-red text-white p-3 rounded-lg hover:bg-red-700 transition-colors"
+                                className="bg-[#D42426] text-white p-3 rounded-lg hover:bg-red-700 transition-colors shadow-md"
                             >
                                 <UserPlus size={20} />
                             </button>
