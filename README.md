@@ -4,6 +4,11 @@
 
 ---
 
+## 🚀 Live Demo
+**Play Now:** [https://santa-gift-app.vercel.app/](https://santa-gift-app.vercel.app/)
+
+---
+
 ## ✨ Key Features
 
 ### 🎨 Creative & Fun
@@ -52,7 +57,7 @@ Follow these steps to run the project locally on your machine.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/your-username/santa-gift-app.git
+   git clone https://github.com/sowravu/santa-gift-app.git
    cd santa-gift-app
    ```
 
