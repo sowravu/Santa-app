@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePoints } from '../context/PointsContext';
+import { useUser } from '../context/UserContext';
 import { ShoppingBag, Lock, Check } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -14,6 +15,19 @@ const ITEMS = [
 
 const Shop: React.FC = () => {
     const { points, subtractPoints, inventory, addToInventory } = usePoints();
+    const { currentUser } = useUser();
+    const [showCongrats, setShowCongrats] = React.useState(false);
+
+    React.useEffect(() => {
+        if (inventory.length > 0 && inventory.length === ITEMS.length) {
+            setShowCongrats(true);
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+        }
+    }, [inventory]);
 
     const handleBuy = (item: typeof ITEMS[0]) => {
         if (points >= item.cost && !inventory.includes(item.id)) {
@@ -102,6 +116,37 @@ const Shop: React.FC = () => {
                     </div>
                 )}
             </div>
+
+            {/* Congratulation Modal */}
+            {showCongrats && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fadeIn">
+                    <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-lg w-full text-center shadow-2xl border-4 border-yellow-400 transform scale-100 animate-bounce-in relative">
+                        <button
+                            onClick={() => setShowCongrats(false)}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                        >
+                            ✕
+                        </button>
+                        <div className="text-6xl mb-6">🎅🎁🎉</div>
+                        <h2 className="text-3xl md:text-4xl font-bold font-heading text-santa-red dark:text-red-400 mb-4">
+                            Congratulations {currentUser}!
+                        </h2>
+                        <p className="text-xl text-gray-700 dark:text-gray-300 mb-6 font-body leading-relaxed">
+                            You've collected everything in the shop!
+                            <br />
+                            <span className="font-bold text-green-600 dark:text-green-400 block mt-2 text-2xl">
+                                Santa is coming for you with the gifts! 🛷🦌
+                            </span>
+                        </p>
+                        <button
+                            onClick={() => setShowCongrats(false)}
+                            className="bg-forest-green hover:bg-green-700 text-white px-8 py-3 rounded-full font-bold text-lg shadow-lg transition-transform hover:scale-105"
+                        >
+                            Yay! Thank you Santa!
+                        </button>
+                    </div>
+                </div>
+            )}
 
         </div>
     );
