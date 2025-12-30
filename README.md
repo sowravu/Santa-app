@@ -89,19 +89,19 @@ Follow these steps to run the project locally on your machine.
 > *Add your screenshots here to showcase the application.*
 
 ### Homepage
-![SantaGift Homepage](/screenshots/homepage.png)
+![SantaGift Homepage](public/screenshots/homepage.png)
 
 ### Holiday Coloring Studio
-![Coloring Studio](/screenshots/coloring.png)
+![Coloring Studio](public/screenshots/coloring.png)
 
 ### Santa's Garden Maze
-![Santa's Maze](/screenshots/maze.png)
+![Santa's Maze](public/screenshots/maze.png)
 
 ### Game Hub
-![Game Hub](/screenshots/games.png)
+![Game Hub](public/screenshots/games.png)
 
 ### Gameplay Preview
-![Memory Match Gameplay](/screenshots/gameplay.png)
+![Memory Match Gameplay](public/screenshots/gameplay.png)
 
 
 ---
