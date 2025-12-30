@@ -125,7 +125,7 @@ const Navbar: React.FC = () => {
 
             {/* Mobile Menu Dropdown */}
             {isOpen && (
-                <div className="absolute top-20 left-0 w-full px-4 md:hidden animate-fadeIn">
+                <div className="absolute top-20 left-0 w-full px-4 md:hidden animate-fadeIn pointer-events-auto">
                     <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-2xl p-4 shadow-2xl flex flex-col gap-4 items-center">
                         <NavLink to="/games" onClick={() => setIsOpen(false)} className="text-lg font-bold text-gray-700 dark:text-gray-200 py-2">Games</NavLink>
                         <NavLink to="/shop" onClick={() => setIsOpen(false)} className="text-lg font-bold text-gray-700 dark:text-gray-200 py-2">Shop</NavLink>
